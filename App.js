@@ -24,6 +24,7 @@ const Input = styled.TextInput`
 
 const Label = styled.Text`
   margin: 20px 50px 0px 50px;
+  font-size: 17px;
 `;
 
 const Form = styled.SafeAreaView``;
@@ -52,9 +53,9 @@ const App = () => {
   const [valor_total, alteraValorTotal] = useState("");
 
 const calculaGorjeta = () => {
-  var valor_gorjeta = (parseFloat(valor_compra)*parseFloat(percentual))/100;
+  var valor_gorjeta = (parseFloat(valor_compra)*percentual)/100;
   var valor_total = parseFloat(valor_compra)+valor_gorjeta;
-  return alteraGorjeta(valor_gorjeta), alteraValorTotal(valor_total);
+  return alteraGorjeta(valor_gorjeta.toFixed(2)), alteraValorTotal(valor_total.toFixed(2));
 };
 
   return (
