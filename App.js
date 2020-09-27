@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text} from 'react-native';
 import styled from 'styled-components';
 
@@ -26,16 +26,37 @@ const Label = styled.Text`
   margin: 20px 50px 0px 50px;
 `;
 
-const Form = styled.View`
-  width: 100%;
-  height: 100%;
+const Form = styled.SafeAreaView``;
+
+const Div = styled.SafeAreaView`
+  margin: 20px 50px 0px 50px;
+  background-color: #36B55A;
 `;
 
-const Btn = styled.Button`
-  background: black;
+const Btn = styled.Button``;
+
+const AreaResult = styled.SafeAreaView`
+  background-color: grey;
+  padding: 25px 25px 25px 25px;
+  margin-top: 50px;
+`;
+
+const ItemResult = styled.Text`
+  font-size: 16px;
 `;
 
 const App = () => {
+  const [valor_compra, alteraCompra] = useState("");
+  const [percentual, alteraPercentual] = useState("");
+  const [valor_gorjeta, alteraGorjeta] = useState("");
+  const [valor_total, alteraValorTotal] = useState("");
+
+const calculaGorjeta = () => {
+  var valor_gorjeta = (parseFloat(valor_compra)*parseFloat(percentual))/100;
+  var valor_total = parseFloat(valor_compra)+valor_gorjeta;
+  return alteraGorjeta(valor_gorjeta), alteraValorTotal(valor_total);
+};
+
   return (
     <Page>
       <Head>
@@ -43,11 +64,21 @@ const App = () => {
       </Head>
       <Form>
         <Label>Valor da Compra:</Label>
-        <Input keyboardType="numeric"/>
+        <Input keyboardType="numeric" value={valor_compra} onChangeText={(valor_compra) => alteraCompra(valor_compra)} />
         <Label>Porcentagem:</Label>
-        <Input keyboardType="numeric"/>
-        <Btn title="CALCULAR"/>
+        <Input keyboardType="numeric" value={percentual} onChangeText={(percentual) => alteraPercentual(percentual)} />
+        <Div>
+          <Btn title="CALCULAR" onPress={calculaGorjeta}/>
+        </Div>
       </Form>
+      <AreaResult>
+        <ItemResult>Valor da Compra</ItemResult>
+        <ItemResult>R$: {valor_compra}</ItemResult>
+        <ItemResult>Valor da Gorjeta</ItemResult>
+        <ItemResult>R$: {valor_gorjeta} ({percentual}%)</ItemResult>
+        <ItemResult>Valor da Total</ItemResult>
+        <ItemResult>R$: {valor_total}</ItemResult> 
+      </AreaResult>
     </Page> 
   );
 };
