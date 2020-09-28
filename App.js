@@ -25,6 +25,8 @@ const Input = styled.TextInput`
 const Label = styled.Text`
   margin: 20px 50px 0px 50px;
   font-size: 17px;
+  font-family: 'Open Sans';
+  font-weight: bold;
 `;
 
 const Form = styled.SafeAreaView``;
@@ -37,13 +39,15 @@ const Div = styled.SafeAreaView`
 const Btn = styled.Button``;
 
 const AreaResult = styled.SafeAreaView`
-  background-color: grey;
+  background-color: #2F2828;
   padding: 25px 25px 25px 25px;
   margin-top: 50px;
+  align-items: center;
 `;
 
 const ItemResult = styled.Text`
   font-size: 16px;
+  color: #ffff;
 `;
 
 const App = () => {
@@ -69,17 +73,19 @@ const calculaGorjeta = () => {
         <Label>Porcentagem:</Label>
         <Input keyboardType="numeric" value={percentual} onChangeText={(percentual) => alteraPercentual(percentual)} />
         <Div>
-          <Btn title="CALCULAR" onPress={calculaGorjeta}/>
+          <Btn color="#000000" title="CALCULAR" onPress={calculaGorjeta}/>
         </Div>
       </Form>
-      <AreaResult>
-        <ItemResult>Valor da Compra</ItemResult>
-        <ItemResult>R$: {valor_compra}</ItemResult>
-        <ItemResult>Valor da Gorjeta</ItemResult>
-        <ItemResult>R$: {valor_gorjeta} ({percentual}%)</ItemResult>
-        <ItemResult>Valor da Total</ItemResult>
-        <ItemResult>R$: {valor_total}</ItemResult> 
-      </AreaResult>
+      { valor_gorjeta > 0 &&
+        <AreaResult>
+          <ItemResult>Valor da Compra</ItemResult>
+          <ItemResult>R$ {valor_compra}</ItemResult>
+          <ItemResult>Valor da Gorjeta</ItemResult>
+          <ItemResult>R$ {valor_gorjeta} ({percentual}%)</ItemResult>
+          <ItemResult>Valor da Total</ItemResult>
+          <ItemResult>R$ {valor_total}</ItemResult> 
+        </AreaResult>
+      }
     </Page> 
   );
 };
